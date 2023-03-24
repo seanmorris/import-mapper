@@ -12,7 +12,9 @@ $ npm install import-mapper
 
 ## Usage
 ### Basic
-Let's say you've got the following module, `Bar.mjs`. It exports one class, `Bar`, which extends `Foo`. The `Foo` class is brought in via an ESM `import {...}`. However, the `Foo` class already exists in our namespace, possibly brought in via `require()`.
+Let's say you've got the following module, `Bar.mjs`. It exports one class, `Bar`, which extends `Foo` from module `@foo/Foo`.
+
+The `Foo` class is brought in via an ESM `import {...}`. However, the `Foo` class already exists in our namespace, possibly brought in via `require()`.
 
 The objective here is to inject the `@foo/Foo` module, and prevent the need to pull the module via HTTP if it already exists in our bundled script.
 
