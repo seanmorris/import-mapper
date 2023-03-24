@@ -143,7 +143,7 @@ Create a new `ImportMapper`.
 #### Returns
 A newly constructed `ImportMapper` object
 
-### ImportMapper.constructor(modules)
+### ImportMapper.register()
 Register the imports.
 
 #### Parameters
