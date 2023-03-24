@@ -104,6 +104,20 @@ importMapper.register();
 import('someString').then(module => console.log(module.someString));
 ```
 
+### Multiple Exports
+You can pass an object with multiple keys to get a module with multiple exports.
+
+```javascript
+// pretend this came from elsewhere
+class Foo{};
+class Bax{};
+
+// Create the ImportMapper.
+const importMapper = new ImportMapper({
+    '@foo/Foo': { Foo, Bax } // "@foo/Foo" has two exports: "Foo" and "Baz".
+});
+````
+
 ### Exporting a Default Object
 Astute readers will notice that the above notation does not allow for the export of a default object. This is because the keys of the top level object will always be used as the named exports for the injected module.
 
