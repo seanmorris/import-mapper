@@ -134,11 +134,9 @@ Create a new `ImportMapper`.
 
 #### Parameters
 * `modules` - A list of modules to inject
-
-`modules` May be one of the following:
-
-* An array of module names to `require()` and map automatically.
-* An object, keyed by module name, The values are objects where each key is an export.
+  `modules` May be one of the following:
+  * An array of module names to `require()` and map automatically.
+  * An object, keyed by module name, The values are objects where each key is an export.
 
 #### Returns
 A newly constructed `ImportMapper` object
