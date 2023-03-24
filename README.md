@@ -3,6 +3,8 @@
 
 `import-mapper` allows you to inject pretty much anything into dynamically `import()`ed modules.
 
+Please report issues to https://github.com/seanmorris/import-mapper/issues
+
 ## install
 Install with npm:
 

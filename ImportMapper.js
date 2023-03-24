@@ -6,22 +6,20 @@ const forceDefault    = Symbol('forceDefault');
 
 const wrapRequire   = (names, path) => schema + encodeURIComponent(`export const { ${names.join(',')} } = globalThis.require(${JSON.stringify(path)});`);
 const wrapScalar    = (scalar)      => schema + encodeURIComponent(`export default ${JSON.stringify(scalar)};`);
-const wrapSomething = (name, something) => {
+const wrapSomething = (names, something) => {
 	let type = typeof something;
 
-	if(name === forceDefault)
+	if(names[0] === forceDefault)
 	{
 		type = 'default-object';
 	}
-
-	console.log(name, something);
 
 	const uuid = crypto.randomUUID();
 
 	if(type === 'object')
 	{
-		globalImports[uuid] = something[name];
-		return schema + encodeURIComponent(`export const ${name} = globalThis['##IMPORTS##']['${uuid}'];`);
+		globalImports[uuid] = something;
+		return schema + encodeURIComponent(`export const { ${names.join(',')} } = globalThis['##IMPORTS##']['${uuid}'];`);
 	}
 
 	globalImports[uuid] = something;
@@ -69,6 +67,8 @@ module.exports.ImportMapper = class ImportMapper
 	{
 		const pairs = [...list].map(path => {
 
+			console.log(path);
+
 			if(Array.isArray(path) && path.length === 2)
 			{
 				let names = Object.keys(path[1]);
@@ -79,10 +79,8 @@ module.exports.ImportMapper = class ImportMapper
 					names   = [forceDefault];
 				}
 
-				return [path[0], wrapSomething(names[0], path[1])];
+				return [path[0], wrapSomething(names, path[1])];
 			}
-
-			console.log(path);
 
 			const stuff = globalThis.require(path);
 			const names = Object.keys(stuff);
