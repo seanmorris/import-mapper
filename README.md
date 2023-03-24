@@ -99,7 +99,7 @@ const importMapper = new ImportMapper({
 
 importMapper.register();
 
-import('someString').then(module => console.log(module.someString));
+import('someString').then(module => console.log(module.label));
 ```
 
 ### Exporting a Default Object
