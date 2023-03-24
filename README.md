@@ -74,6 +74,8 @@ If your bundler is awesome like [brunch](https://brunch.io/) is, then you can ju
 const importMapper = new ImportMapper( globalThis.require.list() );
 ```
 
+This will map all modules available to `require()` to dynamic imports.
+
 ### Scalars
 
 Bare scalar values will be returned as the default export of a module:
