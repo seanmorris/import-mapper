@@ -105,8 +105,7 @@ import('someString').then(module => console.log(module.someString));
 ```
 
 ### Exporting a Default Object
-
-Astute readers will notice. that the above notation does not allow for the export of a default object. This is because the keys of the top level object will always be used as the named exports for the injected module.
+Astute readers will notice that the above notation does not allow for the export of a default object. This is because the keys of the top level object will always be used as the named exports for the injected module.
 
 ```javascript
 const importMapper = new ImportMapper({
