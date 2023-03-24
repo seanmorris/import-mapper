@@ -16,7 +16,7 @@ Let's say you've got the following module, `Bar.mjs`. It exports one class, `Bar
 
 The `Foo` class is brought into `Bar` via an ESM `import {...}`. However, the `Foo` class already exists in our namespace, possibly brought in via `require()`.
 
-The objective here is to inject the `@foo/Foo` module, and prevent the need to pull the module via HTTP if it already exists in our bundled script.
+The objective here is to inject `@foo/Foo`, and prevent the need to pull the module via HTTP if it already exists in our bundled script.
 
 #### Bar.mjs
 ```javascript
