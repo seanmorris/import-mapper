@@ -114,11 +114,11 @@ You can pass an object with multiple keys to get a module with multiple exports.
 ```javascript
 // pretend this came from elsewhere
 class Foo{};
-class Bax{};
+class Baz{};
 
 // Create the ImportMapper.
 const importMapper = new ImportMapper({
-    '@foo/Foo': { Foo, Bax } // "@foo/Foo" has two exports: "Foo" and "Baz".
+    '@foo/Foo': { Foo, Baz } // "@foo/Foo" has two exports: "Foo" and "Baz".
 });
 ````
 
