@@ -23,7 +23,7 @@ import { Foo } from '@foo/Foo';
 export class Bar extends Foo{}
 ```
 
-Now, in `main.js`, we can create
+Now, in `main.js`, we can create an `ImportMapper` to inject `@foo/Foo` into `Bar.mjs`:
 
 #### main.js
 ```javascript
@@ -44,13 +44,13 @@ import('/Bar.mjs').then( module => {
 
     const barInstance = new Bar;
 
-    barInstance instanceof Foo
+    console.log(barInstance instanceof Foo);
 });
 ```
 
 ### Use with require()
 #### Longhand
-If the module `@foo/Foo` is available `require()`, then the above example can be modified to this:
+If the module `@foo/Foo` is available `require()`, then we can declare our `ImportMapper` like so:
 
 ```javascript
 const importMapper = new ImportMapper({
@@ -71,3 +71,86 @@ If your bundler is awesome like [brunch](https://brunch.io/) is, then you can ju
 ```javascript
 const importMapper = new ImportMapper( globalThis.require.list() );
 ```
+
+### Scalars
+
+Bare scalar values will be returned as the default export of a module:
+
+```javascript
+const importMapper = new ImportMapper({
+    'someString': 'this is a string'
+});
+
+importMapper.register();
+
+import('someString').then(module => console.log(module.default));
+```
+
+Wrap the scalar in an object if you need a named export:
+
+```javascript
+const importMapper = new ImportMapper({
+    'someString': {someString: 'this is a string'}
+});
+
+importMapper.register();
+
+import('someString').then(module => console.log(module.someString));
+```
+
+### Exporting a Default Object
+
+Astute readers will notice. that the above notation does not allow for the export of a default object. This is because the keys of the top level object will always be used as the named exports for the injected module.
+
+```javascript
+const importMapper = new ImportMapper({
+    'someObject': {label: 'this is an object'}
+});
+
+importMapper.register();
+
+import('someObject').then(module => console.log(module.default));
+```
+
+Call the static method, `ImportMapper.forceDefault()` on your object, and pass the return value as your module contents to get this behavior:
+
+```javascript
+const importMapper = new ImportMapper({
+    'someObject': ImportMapper.forceDefault({label: 'this is an object'})
+});
+
+importMapper.register();
+
+import('someObject').then(module => console.log(module.default));
+```
+
+## Methods
+### ImportMapper.constructor(modules)
+Create a new `ImportMapper`.
+
+#### Parameters
+* `modules` - A list of modules to inject
+
+`modules` May be one of the following:
+
+* An array of module names to `require()` and map automatically.
+* An object, keyed by module name, The values are objects where each key is an export.
+
+#### Returns
+A newly constructed `ImportMapper` object
+
+### ImportMapper.constructor(modules)
+Register the imports.
+
+#### Parameters
+*none*
+#### Returns
+*none*
+
+### ImportMapper.forceDefault(object)
+**Static method**, returns an object that will be treated as the default export from the module.
+
+#### Parameters
+* `object` - The object to use as the default export
+#### Returns
+Returns a wrapped module object.

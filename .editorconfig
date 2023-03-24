@@ -10,7 +10,6 @@ trim_trailing_whitespace = true
 indent_style = space
 indent_size  = 2
 
-[*.txt]
-insert_final_newline = false
+[*.md]
 indent_style = space
 indent_size  = 4

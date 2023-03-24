@@ -1,30 +1,32 @@
 const globalImports = globalThis['##IMPORTS##'] = globalThis['##IMPORTS##'] ?? {};
 const schema = 'data:application/javascript;charset=utf-8,';
 
-const wrapRequire = (names, path) => schema + encodeURIComponent(
-	`export const { ${names.join(',')} } = globalThis.require(${JSON.stringify(path)});`
-);
-
-const wrapScalar  = (scalar) => schema + encodeURIComponent(
-	`export default ${JSON.stringify(scalar)};`
-);
-
-const wrapSomething = (name, something) => {
-	switch(typeof something)
-	{
-		case 'function':
-			globalImports[name] = something;
-			return schema + encodeURIComponent(`export const ${name||something.name} = globalThis['##IMPORTS##']['${name}'];`);
-		case 'object':
-			globalImports[name] = something[name];
-			return schema + encodeURIComponent(`export const ${name} = globalThis['##IMPORTS##']['${name}'];`);
-		default:
-			globalImports[name] = something[name];
-			return schema + encodeURIComponent(`export default globalThis['##IMPORTS##']['${name}'];`);
-	}
-};
-
 const processIterable = Symbol('processRequires');
+const forceDefault    = Symbol('forceDefault');
+
+const wrapRequire   = (names, path) => schema + encodeURIComponent(`export const { ${names.join(',')} } = globalThis.require(${JSON.stringify(path)});`);
+const wrapScalar    = (scalar)      => schema + encodeURIComponent(`export default ${JSON.stringify(scalar)};`);
+const wrapSomething = (name, something) => {
+	let type = typeof something;
+
+	if(name === forceDefault)
+	{
+		type = 'default-object';
+	}
+
+	console.log(name, something);
+
+	const uuid = crypto.randomUUID();
+
+	if(type === 'object')
+	{
+		globalImports[uuid] = something[name];
+		return schema + encodeURIComponent(`export const ${name} = globalThis['##IMPORTS##']['${uuid}'];`);
+	}
+
+	globalImports[uuid] = something;
+	return schema + encodeURIComponent(`export default globalThis['##IMPORTS##']['${uuid}'];`);
+};
 
 module.exports.ImportMapper = class ImportMapper
 {
@@ -41,6 +43,11 @@ module.exports.ImportMapper = class ImportMapper
 		}
 	}
 
+	static forceDefault(object)
+	{
+		return {[forceDefault]: object};
+	}
+
 	generate()
 	{
 		const script  = document.createElement('script');
@@ -55,7 +62,7 @@ module.exports.ImportMapper = class ImportMapper
 	{
 		const importMap = this.generate();
 		document.head.append(importMap);
-		importMap.remove();
+		// importMap.remove();
 	}
 
 	[processIterable](list)
@@ -64,7 +71,13 @@ module.exports.ImportMapper = class ImportMapper
 
 			if(Array.isArray(path) && path.length === 2)
 			{
-				const names = Object.keys(path[1]);
+				let names = Object.keys(path[1]);
+
+				if(typeof path[1] === 'object' && path[1][ forceDefault ])
+				{
+					path[1] = path[1][ forceDefault ];
+					names   = [forceDefault];
+				}
 
 				return [path[0], wrapSomething(names[0], path[1])];
 			}
