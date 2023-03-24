@@ -136,7 +136,7 @@ Create a new `ImportMapper`.
 * `modules` - A list of modules to inject
 
   May be one of the following:
-  * An object, keyed by module name, each value is an object where the keys are exports.
+  * An object, keyed by module name, each value is an object where the keys are the module's exports.
   * An array of module names to `require()` and map automatically.
 
 #### Returns
