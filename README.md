@@ -32,7 +32,7 @@ class Foo{};
 
 // Create the ImportMapper.
 const importMapper = new ImportMapper({
-	'@foo/Foo': { Foo } // "@foo/Foo" has one export: "Foo".
+    '@foo/Foo': { Foo } // "@foo/Foo" has one export: "Foo".
 });
 
 // Register it.
@@ -40,11 +40,11 @@ importMapper.register();
 
 import('/Bar.mjs').then( module => {
 
-	const { Bar } = module;
+    const { Bar } = module;
 
-	const barInstance = new Bar;
+    const barInstance = new Bar;
 
-	barInstance instanceof Foo
+    barInstance instanceof Foo
 });
 ```
 
@@ -54,7 +54,7 @@ If the module `@foo/Foo` is available `require()`, then the above example can be
 
 ```javascript
 const importMapper = new ImportMapper({
-	'@foo/Foo': require('@foo/Foo')
+    '@foo/Foo': require('@foo/Foo')
 });
 ```
 
