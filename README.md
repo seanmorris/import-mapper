@@ -116,7 +116,7 @@ importMapper.register();
 import('someObject').then(module => console.log(module.default));
 ```
 
-Call the static method, `ImportMapper.forceDefault()` on your object, and pass the return value as your module contents to get this behavior:
+Call the static method, `ImportMapper.forceDefault()` on your object, and pass in the module content to get this behavior:
 
 ```javascript
 const importMapper = new ImportMapper({
