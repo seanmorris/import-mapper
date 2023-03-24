@@ -99,7 +99,7 @@ const importMapper = new ImportMapper({
 
 importMapper.register();
 
-import('someString').then(module => console.log(module.label));
+import('someString').then(module => console.log(module.someString));
 ```
 
 ### Exporting a Default Object
@@ -113,7 +113,7 @@ const importMapper = new ImportMapper({
 
 importMapper.register();
 
-import('someObject').then(module => console.log(module.default));
+import('someObject').then(module => console.log(module.label));
 ```
 
 Pass the module content into the **static method** `ImportMapper.forceDefault()` and use the return value to get this behavior:
