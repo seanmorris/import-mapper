@@ -42,12 +42,16 @@ const importMapper = new ImportMapper({
 // Register it.
 importMapper.register();
 
+// Import Bar.
 import('/Bar.mjs').then( module => {
 
+    // Get the class...
     const { Bar } = module;
 
+    // Create the instance
     const barInstance = new Bar;
 
+    // Check that Bar extends Foo
     console.log(barInstance instanceof Foo);
 });
 ```
