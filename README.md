@@ -14,7 +14,7 @@ $ npm install import-mapper
 
 Include with UNPKG:
 ```html
-<script src = "https://unpkg.com/browse/import-mapper/dist/ImportMapper.js"></script>
+<script src = "https://unpkg.com/import-mapper/dist/ImportMapper.js"></script>
 ```
 
 ## Usage
