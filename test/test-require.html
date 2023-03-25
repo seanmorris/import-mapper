@@ -1,8 +1,6 @@
 <head>
 	<link rel = "stylesheet" href = "./mocha.css" />
-	<script src = "./require.js"></script>
-	<script src = "./chai.js"></script>
-	<script src = "./mocha.js"></script>
+	<script src = "./index.js"></script>
 	<script src = "./ImportMapper.js"></script>
 </head>
 <body>
@@ -20,15 +18,15 @@
 
 		importMapper.register();
 
-		it('default-object should have one default export', () => {
+		it('ImportMapper should be injected into dynamic imports', () => {
 			return import('ImportMapper.js').then(module => {
 				assert.equal(
 					1, Object.keys(module).length
-					, 'Module should have one export'
+					, `Module should have ${Object.keys(module).length} export(s)`
 				);
 				assert.equal(
 					module.ImportMapper, ImportMapper
-					, 'Export should matche passed value.'
+					, 'Export should match passed value.'
 				);
 			});
 		});

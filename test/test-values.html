@@ -1,8 +1,6 @@
 <head>
 	<link rel = "stylesheet" href = "./mocha.css" />
-	<script src = "./require.js"></script>
-	<script src = "./chai.js"></script>
-	<script src = "./mocha.js"></script>
+	<script src = "./index.js"></script>
 	<script src = "./ImportMapper.js"></script>
 </head>
 <body>
@@ -42,7 +40,7 @@
 				);
 				assert.equal(
 					module.Foo, Foo
-					, 'Export should matche passed value.'
+					, 'Export should match passed value.'
 				);
 			});
 		});
@@ -55,15 +53,15 @@
 				);
 				assert.equal(
 					module.Foo, Foo
-					, 'Export should matche passed value.'
+					, 'Export should match passed value.'
 				);
 				assert.equal(
 					module.Bar, Bar
-					, 'Export should matche passed value.'
+					, 'Export should match passed value.'
 				);
 				assert.equal(
 					module.Baz, Baz
-					, 'Export should matche passed value.'
+					, 'Export should match passed value.'
 				);
 			});
 		});
@@ -76,7 +74,7 @@
 				);
 				assert.equal(
 					module.default, 42
-					, 'Export should matche passed value.'
+					, 'Export should match passed value.'
 				);
 			});
 		});
@@ -89,7 +87,7 @@
 				);
 				assert.equal(
 					module.default, 'string val'
-					, 'Export should matche passed value.'
+					, 'Export should match passed value.'
 				);
 			});
 		});
@@ -102,7 +100,7 @@
 				);
 				assert.equal(
 					module.default, func
-					, 'Export should matche passed value.'
+					, 'Export should match passed value.'
 				);
 			});
 		});
@@ -116,7 +114,7 @@
 				console.log(module.default,def);
 				assert.equal(
 					module.default, def
-					, 'Export should matche passed value.'
+					, 'Export should match passed value.'
 				);
 			});
 		});

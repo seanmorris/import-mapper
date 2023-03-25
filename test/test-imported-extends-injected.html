@@ -1,0 +1,37 @@
+<head>
+	<link rel = "stylesheet" href = "./mocha.css" />
+	<script src = "./index.js"></script>
+	<script src = "./ImportMapper.js"></script>
+</head>
+<body>
+	<div id = "mocha"></div>
+	<script>
+
+		mocha.setup('bdd');
+
+		const { ImportMapper } = require('ImportMapper.js');
+		const { assert } = chai;
+
+		class Injected{};
+
+		const modules = { 'Injected': { Injected } };
+
+		const importMapper = new ImportMapper(modules);
+
+		importMapper.register();
+
+		it('Imported class extends Injected class', () => {
+			return import('./Imported.mjs').then(module => {
+				const imported = new module.Imported;
+
+				assert.instanceOf(
+					imported
+					, Injected
+					, 'Imported value should be instanceof Injected.'
+				);
+			});
+		});
+
+		mocha.run();
+	</script>
+</body>

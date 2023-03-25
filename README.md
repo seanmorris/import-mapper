@@ -12,6 +12,11 @@ Install with npm:
 $ npm install import-mapper
 ```
 
+Include with UNPKG:
+```html
+<script src = "https://unpkg.com/browse/import-mapper/dist/ImportMapper.js"></script>
+```
+
 ## Usage
 ### Basic
 Let's say you've got the following module, `Bar.mjs`. It exports one class, `Bar`, which extends `Foo` from module `@foo/Foo`.

@@ -6,9 +6,14 @@
 	"license": "Apache 2.0",
 	"main": "ImportMapper.js",
 	"scripts": {
-		"test": "xdg-open test/test-require.html; xdg-open test/test-values.html"
+		"test": "npx http-server test/ & ( sleep 3; xdg-open http://127.0.0.1:8080/test-require.html; xdg-open http://127.0.0.1:8080/test-values.html; xdg-open http://127.0.0.1:8080/test-imported-extends-injected.html ) & wait"
 	},
-	"dev-dependencies": {},
+	"devDependencies": {
+		"chai": "4.3.7",
+		"commonjs-require": "1.4.6",
+		"http-server": "14.1.1",
+		"mocha": "10.2.0"
+	},
 	"files": [
 		"ImportMapper.js",
 		"LICENSE",
