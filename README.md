@@ -31,6 +31,8 @@ Now, in `main.js`, we can create an `ImportMapper` to inject `@foo/Foo` into `Ba
 
 #### main.js
 ```javascript
+const { ImportMapper } = require('import-mapper');
+
 // pretend this came from elsewhere
 class Foo{};
 

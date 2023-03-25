@@ -28,7 +28,7 @@ const wrapSomething = (names, something) => {
 
 module.exports.ImportMapper = class ImportMapper
 {
-	constructor(imports)
+	constructor(imports, options)
 	{
 		if(imports)
 		{
@@ -41,9 +41,9 @@ module.exports.ImportMapper = class ImportMapper
 		}
 	}
 
-	static forceDefault(object)
+	add(name, module)
 	{
-		return {[forceDefault]: object};
+		this.imports[name] = module;
 	}
 
 	generate()
@@ -60,14 +60,12 @@ module.exports.ImportMapper = class ImportMapper
 	{
 		const importMap = this.generate();
 		document.head.append(importMap);
-		// importMap.remove();
+		importMap.remove();
 	}
 
 	[processIterable](list)
 	{
 		const pairs = [...list].map(path => {
-
-			console.log(path);
 
 			if(Array.isArray(path) && path.length === 2)
 			{
@@ -101,5 +99,10 @@ module.exports.ImportMapper = class ImportMapper
 		});
 
 		return Object.fromEntries(pairs.filter(x => x));
+	}
+
+	static forceDefault(object)
+	{
+		return {[forceDefault]: object};
 	}
 }

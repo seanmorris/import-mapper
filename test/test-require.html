@@ -1,0 +1,38 @@
+<head>
+	<link rel = "stylesheet" href = "./mocha.css" />
+	<script src = "./require.js"></script>
+	<script src = "./chai.js"></script>
+	<script src = "./mocha.js"></script>
+	<script src = "./ImportMapper.js"></script>
+</head>
+<body>
+	<div id = "mocha"></div>
+	<script>
+
+		mocha.setup('bdd');
+
+		const { ImportMapper } = require('ImportMapper.js');
+		const { assert } = chai;
+
+		const moduleList = require.list();
+
+		const importMapper = new ImportMapper(moduleList);
+
+		importMapper.register();
+
+		it('default-object should have one default export', () => {
+			return import('ImportMapper.js').then(module => {
+				assert.equal(
+					1, Object.keys(module).length
+					, 'Module should have one export'
+				);
+				assert.equal(
+					module.ImportMapper, ImportMapper
+					, 'Export should matche passed value.'
+				);
+			});
+		});
+
+		mocha.run();
+	</script>
+</body>

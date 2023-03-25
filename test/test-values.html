@@ -1,0 +1,126 @@
+<head>
+	<link rel = "stylesheet" href = "./mocha.css" />
+	<script src = "./require.js"></script>
+	<script src = "./chai.js"></script>
+	<script src = "./mocha.js"></script>
+	<script src = "./ImportMapper.js"></script>
+</head>
+<body>
+	<div id = "mocha"></div>
+	<script>
+
+		mocha.setup('bdd');
+
+		const { ImportMapper } = require('ImportMapper.js');
+		const { assert } = chai;
+
+		class Foo{};
+		class Bar{};
+		class Baz{};
+
+		const func = () => 'this is a return value';
+		const def  = {label: 255};
+
+		const modules = {
+			'single-export':    { Foo }
+			, 'multi-export':   { Foo, Bar, Baz }
+			, 'number-export':  42
+			, 'string-export':  'string val'
+			, 'default-func':   func
+			, 'default-object': ImportMapper.forceDefault(def)
+		};
+
+		const importMapper = new ImportMapper(modules);
+
+		importMapper.register();
+
+		it('single-export should return a module with only Foo', () => {
+			return import('single-export').then(module => {
+				assert.equal(
+					1, Object.keys(module).length
+					, 'Module should have one export'
+				);
+				assert.equal(
+					module.Foo, Foo
+					, 'Export should matche passed value.'
+				);
+			});
+		});
+
+		it('multi-export should return a module with 3 exports', () => {
+			return import('multi-export').then(module => {
+				assert.equal(
+					3, Object.keys(module).length
+					, 'Module should have three exports'
+				);
+				assert.equal(
+					module.Foo, Foo
+					, 'Export should matche passed value.'
+				);
+				assert.equal(
+					module.Bar, Bar
+					, 'Export should matche passed value.'
+				);
+				assert.equal(
+					module.Baz, Baz
+					, 'Export should matche passed value.'
+				);
+			});
+		});
+
+		it('number-export should have one default export', () => {
+			return import('number-export').then(module => {
+				assert.equal(
+					1, Object.keys(module).length
+					, 'Module should have one export'
+				);
+				assert.equal(
+					module.default, 42
+					, 'Export should matche passed value.'
+				);
+			});
+		});
+
+		it('string-export should have one default export', () => {
+			return import('string-export').then(module => {
+				assert.equal(
+					1, Object.keys(module).length
+					, 'Module should have one export'
+				);
+				assert.equal(
+					module.default, 'string val'
+					, 'Export should matche passed value.'
+				);
+			});
+		});
+
+		it('default-func should have one default export', () => {
+			return import('default-func').then(module => {
+				assert.equal(
+					1, Object.keys(module).length
+					, 'Module should have one export'
+				);
+				assert.equal(
+					module.default, func
+					, 'Export should matche passed value.'
+				);
+			});
+		});
+
+		it('default-object should have one default export', () => {
+			return import('default-object').then(module => {
+				assert.equal(
+					1, Object.keys(module).length
+					, 'Module should have one export'
+				);
+				console.log(module.default,def);
+				assert.equal(
+					module.default, def
+					, 'Export should matche passed value.'
+				);
+			});
+		});
+
+		mocha.run();
+	</script>
+</body>
