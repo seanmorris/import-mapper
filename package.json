@@ -6,7 +6,7 @@
 	"license": "Apache 2.0",
 	"main": "ImportMapper.js",
 	"scripts": {
-		"test": "npx http-server test/ & ( sleep 3; xdg-open http://127.0.0.1:8080/test-require.html; xdg-open http://127.0.0.1:8080/test-values.html; xdg-open http://127.0.0.1:8080/test-imported-extends-injected.html ) & wait"
+		"test": "npx http-server test/ & ( sleep 5; kill -9 `lsof -t -i:8080`; ) & ( sleep 3; xdg-open http://127.0.0.1:8080/test-require.html; xdg-open http://127.0.0.1:8080/test-values.html; xdg-open http://127.0.0.1:8080/test-imported-extends-injected.html ) & wait"
 	},
 	"devDependencies": {
 		"chai": "4.3.7",
