@@ -1,6 +1,6 @@
 {
 	"name": "import-mapper",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"description": "Map bundled classes to dynamic imports.",
 	"author": "Sean Morris",
 	"license": "Apache 2.0",
