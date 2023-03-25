@@ -12,8 +12,9 @@ Install with npm:
 $ npm install import-mapper
 ```
 
-Include with UNPKG:
+*Or*, include with unpkg:
 ```html
+<script src = "https://unpkg.com/commonjs-require-definition/require.js"></script>
 <script src = "https://unpkg.com/import-mapper/dist/ImportMapper.js"></script>
 ```
 
