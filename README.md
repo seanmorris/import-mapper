@@ -21,6 +21,7 @@ Include with UNPKG:
 ### Basic
 Let's say you've got the following module, `Bar.mjs`. It exports one class, `Bar`, which extends `Foo` from module `@foo/Foo`.
 
+#### Bar.mjs
 ```javascript
 import { Foo } from '@foo/Foo';
 
@@ -31,7 +32,6 @@ The `Foo` class is brought into `Bar` via an ESM `import {...}`. However, the `F
 
 The objective here is to inject the *existing* `@foo/Foo`, and prevent the need to pull the module via HTTP if it already exists in our bundled script.
 
-#### Bar.mjs
 
 Now, in `main.js`, we can create an `ImportMapper` to inject `@foo/Foo` into `Bar.mjs`:
 
