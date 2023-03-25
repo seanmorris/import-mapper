@@ -15,6 +15,7 @@
 		"mocha": "10.2.0"
 	},
 	"files": [
+		"dist/ImportMapper.js",
 		"ImportMapper.js",
 		"LICENSE",
 		"NOTICE"
